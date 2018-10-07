@@ -1,0 +1,107 @@
+<div class='content-section introduction'>
+  <div class='ui-grid-row'>
+    <div class="ui-grid-col-4">
+      <div  class="text-c">全景框</div>
+    </div>
+    <div class="ui-grid-col-4">
+      <div class="text-c">目标框</div>
+    </div>
+    <div class="ui-grid-col-4">
+      <div class="text-c">运动物体检测结果展示</div>
+    </div>
+  </div>
+</div>
+<!-- <div class='content-section implementation'>
+  <p-steps [model]="items" [(activeIndex)]="activeIndex" [readonly]="false"></p-steps>
+</div> -->
+<div class='content-section documentation'>
+  <!--按扭区-->
+  <!-- <div [ngif]="videofile.code!=null">{{videofile.code}}</div> -->
+  <div class='ui-grid-row'>
+    <div class="ui-grid-col-4 text-c">
+      <button type="button" pButton icon="fa fa-file-video-o" class="ui-button-info" label="上传视频" (click)="uploadFile()"></button>
+    </div>
+    <div class="ui-grid-col-4 text-c">
+      <button type="button" pButton icon="fa fa-file-video-o" class="ui-button-warning" label="框定区域" (click)="pinpoint()"></button>
+    </div>
+    <div class="ui-grid-col-4 text-c">
+      <div>
+        <button type="button" pButton icon="fa fa-file-video-o" class="ui-button-danger" label="开始检测" (click)="track()"></button>
+      </div>
+      <div>
+        <p-selectButton [options]="types" [(ngModel)]="selectedType" (onChange)="changeshow()" [disabled]="videofile.videoTrackPath?fasle:true" #selectButton></p-selectButton>
+      </div>
+      <!-- <button type="button" [disabled]="true" pButton icon="fa fa-file-video-o" label="前景检测展示" (click)="showTrack()"></button>
+      <button type="button" [disabled]="true" pButton icon="fa fa-file-video-o" label="自然检测展示" (click)="showMask()"></button> -->
+    </div>
+  </div>
+  <div class='ui-grid-row'>
+    <div class="ui-grid-col-4">
+      <!-- <div *ngif="videofile.mime" [(ngModel)]="videofile.name"></div> -->
+      <div class="text-c video-div">
+        <video controls="controls" [src]="downloadUrl + videofile.code" #VideoDiv>
+            <source  [type]="videofile.mime">
+        </video>
+      </div>
+    </div>
+    <div class="ui-grid-col-4">
+      <div class="text-c video-div">
+        <!-- <video controls="controls" [src]="cutVideoUrl + videofile.cutVideoPath" #CutVideoDiv>
+            <source  [type]="videofile.mime">
+        </video> -->
+        <video controls="controls" #CutVideoDiv>
+            <source  [type]="videofile.mime">
+        </video>
+      </div>
+    </div>
+    <div class="ui-grid-col-4">
+      <div class="text-c video-div">
+        <!-- <video controls="controls" [src]="videoTrackPath + videofile.videoTrackPath" #VideoDiv> -->
+          <video controls="controls" #TrackVideoDiv>
+            <source  [type]="videofile.mime">
+        </video>
+      </div>  
+    </div>
+  </div>
+  <div class="WaveLine">
+    <div echarts [options]="options" class="demo-chart"></div>
+  </div>
+  
+</div>
+
+<p-dialog styleClass='dialog' header="上传视频" [(visible)]="displayUploadDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="500">
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-12">
+        <p-fileUpload mode="basic" name="file" [url]="uploadUrl" (onUpload)="onUpload($event)"></p-fileUpload>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog styleClass='dialog' header="框定目标区" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [width]="600">
+  <div class="ui-grid ui-grid-responsive ui-fluid">
+    <div class="ui-grid-row">
+      <div class="text-c video-img-div" #VideoImgDiv>
+        <!-- <canvas id="can" #Can (mousedown)="mousedowndraw($event)"> -->
+        <canvas id="can" #Can>
+            您的浏览器不支持canvas标签，请您更换浏览器！
+        </canvas>
+      </div>
+      <!-- <div #VideoImgParentDiv>
+        <img style="height:150px;" #VideoImg/>
+      </div> -->
+      <!-- <ng-template [ngIf]="videofile.code">
+        <div class="text-c video-div">
+          <img [src]='imageUrl + videofile.code' #ImageDiv/>
+        </div>
+      </ng-template> -->
+    </div>
+  </div>
+  <div class="buttons ui-dialog-buttonpane ui-helper-clearfix">
+    <button type="button" pButton icon="fa fa-check" (click)="save()" label="确定"></button>
+    <button type="button" pButton icon="fa fa-close" (click)="close()" label="关闭"></button>
+  </div>
+</p-dialog>

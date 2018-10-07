@@ -1,0 +1,32 @@
+<div class='layout-wrapper'>
+  <div class='layout-topbar'>
+    <div class='logo'></div>
+    <span class='title'>运动目标检测展示系统</span>
+    <div class='top-menu'>
+        <a pButton (click)='reloadData()' label="功能按钮"></a>
+        <a pButton (click)='reloadData()' label="功能按钮"></a>
+        <!-- <a pButton [href]="portalUrl" label="子系统列表"></a> -->
+        <!-- <a pButton routerLink="user-detail" [label]="user.name" *ngIf="user"></a> -->
+        <!-- <p-splitButton [label]="user.currentOrg.name" [model]="orgs" *ngIf="user && user.currentOrg"></p-splitButton> -->
+        <!-- <a pButton label="注销" (click)='logout()'></a> -->
+      </div>
+    <!-- <div class='top-menu' *ngIf="user">
+      <a pButton [href]="portalUrl" label="子系统列表"></a>
+      <a pButton routerLink="user-detail" [label]="user.name" *ngIf="user"></a>
+      <p-splitButton [label]="user.currentOrg.name" [model]="orgs" *ngIf="user && user.currentOrg"></p-splitButton>
+      <a pButton label="注销" (click)='logout()'></a>
+    </div> -->
+  </div>
+  <p-tabMenu [model]="items" class='layout-sidebar' [activeItem]="items[0]"></p-tabMenu>
+  <!-- <div class='layout-sidebar'>
+    <div class='layout-menu'>
+      <p-menu [model]="items" styleClass='menu'></p-menu>
+    </div>
+  </div> -->
+  <div class='layout-content'>
+    <div><router-outlet></router-outlet></div>
+  </div>
+  <div class='content-section layout-footer clearfix'><span><a href='https://www.senlang.com' target='_blank'>科大森浪</a>提供技术支持</span></div>
+</div>
+<p-growl></p-growl>
+<p-confirmDialog></p-confirmDialog>
